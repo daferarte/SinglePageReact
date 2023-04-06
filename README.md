@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Router del cliente
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Para comprender cómo funciona el proceso de ruteo en el cliente, primero debemos entender qué pasa cuando enviamos una solicitud a un servidor, para que esté nos entregue la respuesta que queremos.
 
-## Available Scripts
+En un sitio web sin dinamismo, tenemos múltiples archivos HTML, cada uno de ellos con una ruta correspondiente de acceso, misma que usualmente es igual a la ubicación del archivo en el servidor. El servidor tiene el trabajo de darle lectura a la ruta, y buscar el archivo correspondiente. A este proceso lo llamamos ruteo, y es la forma más básica de ruteo que existe.
 
-In the project directory, you can run:
+En una aplicación web, el proceso de ruteo lo hace un lenguaje de programación, usualmente apoyado de un archivo en el que se definen las rutas, junto con las estructuras de código que darán respuesta a cada ruta, usualmente una función.
 
-### `npm start`
+Cuando el servidor recibe una petición, el servicio encargado del ruteo, carga el archivo con las rutas definidas, busca la ruta recibida y delega a la función correspondiente el darle respuesta a la solicitud, la función produce la vista, y los links a los archivos necesarios para cargar la página.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+la respuesta a la ruta. Este es el ruteo al que usualmente conocemos como server side routing, o ruteo en el servidor. Es el más común y el más tradicional.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Existen algunas deficiencias al routing en el servidor, como por ejemplo, que aunque dos páginas de rutas distintas, usen el mismo archivo de estilos, ambas páginas deben de volver a solicitarlo y volver a cargarlo. En cada navegación entre rutas, el navegador pausa mientras carga la nueva vista, y la despliega. Haciendo que el sitio sea inusable durante estos segundos.
 
-### `npm test`
+Para mejorar la experiencia de usuario, se produce este concepto de routing desde el cliente, que es, traer toda la lógica de ruteo del server, hacia el cliente. Tal como en el caso del ruteo en el servidor, en el cliente, se define un archivo con las rutas de la aplicación, y qué función se encargará de responder, en el caso de React, es un componente el que se muestra para cada ruta.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Este proceso implica que sea el lenguaje del cliente, JavaScript, quien implemente la lógica necesaria para actualizar la página. Misma que puede verse de una de las dos siguientes formas:
 
-### `npm run build`
+La primera, que se cargue un archivo JavaScript que incluya todas las funciones para actualizar la página. Que al cambiar la página, se use este archivo JavaScript para actualizar la página misma, y sólo se carguen los nuevos recursos solicitados como imágenes, videos, etc.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La segunda, que se cargue una porción de JavaScript por página, y que cuando se navegue hacia otra ruta, se realice una petición AJAX al servidor, para traer otra porción de JavaScript que actualice la página. Todo esto sin recargar la página. A este proceso se le llama code splitting, porque dividimos el código por páginas.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+De entre las dos estrategias, la de code splitting suele ser la mejor, porque evita que desde la primera página que visites, descargues todo el código de la aplicación completa. Por otro lado, la estrategia de code splitting, implica que debes tener una estrategia y una herramienta para separar tu código. Webpack puede hacer esto por ti.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Una de las grandes ventajas que nos ofrece el routing en el cliente, es la posibilidad de recargar la página por porciones, en lugar de hacerlo completamente. Esto entre otras cosas nos permite guardar el estado de los elementos que no se actualizan, y únicamente modificar lo que sí. Además de que permite que el usuario pueda continuar interactuando con el sitio, aún cuando una parte esté cargando.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Entre las desventajas del routing en el cliente tenemos que, puede romper la funcionalidad de la página si se deshabilita JavaScript, normalmente, estas tecnologías no están diseñadas para trabajar junto con lectores de pantalla u otras herramientas de accesiblidad. Esta práctica también puede ser más difícil de mantener, porque gran parte de la funcionalidad que el protocolo HTTP y el funcionamiento de la web, dan por defecto, tiene que implementarse desde 0 en el router del cliente.
