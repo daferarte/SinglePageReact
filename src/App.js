@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Link, Outlet, redirect, useNavigate, Navigate} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link, Outlet, redirect, useNavigate, Navigate, useParams} from 'react-router-dom';
 
 let NotImplemented = () => {
   return (
@@ -23,6 +23,18 @@ let UsuariosOutlet =()=>{
   )
 }
 
+let VideoShow = () =>{
+  //extraccion del objeto enviado por params
+  let {id} = useParams();
+  let params = useParams();
+  console.log(params);
+  return(
+    <p>
+      {id}
+    </p>
+  )
+}
+
 function App() {
   const isAuth = false;
   return (
@@ -42,10 +54,10 @@ function App() {
         </Route>
 
         {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
-        <Route path='/videos' element={ <Navigate to='/'/>}>
+        <Route path='/videos'>
           <Route path='' element={<NotImplemented/>} />
           <Route path='nuevo' element={<NotImplemented/>} />
-          <Route path=':id' element={<NotImplemented/>} />
+          <Route path=':id' element={<VideoShow/>} />
         </Route>
         
       </Routes>
