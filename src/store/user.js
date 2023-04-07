@@ -20,7 +20,18 @@ let userSlice = createSlice({
         }
     },
     extraReducers:{
-        
+        // estado pendiente 
+        [signUp.pending]: (state, action) => {
+            state.status = 'loading';
+        },
+        // estado finalizado
+        [signUp.fulfilled]: (state, action) => {
+            state.user = action.payload;
+        },
+        //estado fallido
+        [signUp.rejected]: (state, action) => {
+            state.status = 'failed';
+        }
     }
 });
 

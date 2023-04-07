@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { logOut, signIn } from "../store/user";
+import { logOut, signUp } from "../store/user";
 //metodo de simulacion de almacenamiento del payload
 let SingIn = (props) => {
     let dispatch = useDispatch();
@@ -11,9 +11,11 @@ let SingIn = (props) => {
 
     let doSignIn = () => {
         dispatch(
-            signIn({
-                email: 'daferarte@gmail.com',
-                jwtToken: 'zcef7w48f7s7wefi7efh'
+            signUp({
+                credentials:{
+                    email: 'daferarte@gmail.com',
+                    jwtToken: 'zcef7w48f7s7wefi7efh'
+                }                
             })
         )
     }
