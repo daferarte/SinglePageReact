@@ -1,4 +1,9 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+
+export const signUp = createAsyncThunk('user/signUp', async (credentials)=>{
+    // realizar operacion asincrona
+    return credentials;
+});
 
 let userSlice = createSlice({
     name: 'user',
@@ -13,6 +18,9 @@ let userSlice = createSlice({
         logOut: (state) =>{
             state.user = null;
         }
+    },
+    extraReducers:{
+        
     }
 });
 
