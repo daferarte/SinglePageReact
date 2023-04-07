@@ -10,7 +10,9 @@ const reducer = combineReducers({
 
 const persistConfg = {
     key: 'root',
-    storage: storage
+    storage: storage,
+    whilelist: ['user'], //pasa lo que se quiere que se guarde en el localstorage
+    blacklist: [], //pasa lo que se quiere que no se guarde en el localstorage
 }
 
 const persistedReducer = persistReducer(persistConfg, reducer);
