@@ -1,11 +1,13 @@
 //manejo inicial del redux para almacenamiento de usuario
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import {persistStore, persistReducer} from 'redux-persist';
-import userSlice from './user';
+import userReducer from './user';
+import videosReducer from './videos';
 import storage  from 'redux-persist/lib/storage';
 
 const reducer = combineReducers({
-    user: userSlice
+    user: userReducer,
+    videos: videosReducer
 });
 
 const persistConfg = {
