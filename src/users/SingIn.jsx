@@ -1,41 +1,29 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useForm } from 'react-hook-form';
+import { useDispatch } from "react-redux";
+import { signIn } from "../store/user";
 
-import { logOut, signUp } from "../store/user";
-//metodo de simulacion de almacenamiento del payload
 let SingIn = (props) => {
+    
     let dispatch = useDispatch();
 
-    let user = useSelector(state => state.user.user);
-    console.log(user);
+    const { register, handleSubmit } = useForm(); //hook para enviar formularios
 
-    let doSignIn = () => {
+    let onSubmit = (data) =>{
         dispatch(
-            signUp({
-                credentials:{
-                    email: 'daasd@gmail.com',
-                    password: '12345678',
-                    username: 'daasd'
-                }                
-            })
-        )
-    }
-
-    let doLogOut = () => {
-        dispatch(
-            logOut()
+            signIn(
+                {credentials:data}
+            )
         )
     }
 
     return(
         <div>
-            {
-                user ?
-                <button onClick={doLogOut}>Cerrar sesion</button>
-                :
-                <button onClick={doSignIn}>Ingresar</button>
-            }
-            
+            <form onSubmit={handleSubmit( onSubmit )}>
+                <input type="email" name="email" {...register("email")} placeholder="Correo electronico"/>
+                <input type="password" name="password" {...register("password")} placeholder="Contraseña"/>
+                <input type="submit" value="Enviar" />
+            </form>            
         </div>
     )
 }
