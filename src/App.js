@@ -1,7 +1,13 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
 let NotImplemented = () => {
-  return <h1>Esta pagina aun no esta lista</h1>
+  return (
+    <>
+      {/* link para usar redirecciones es la manera optima sin multiples peticiones */}
+      <Link to="/Videos">Ir a videos</Link>
+      <h1>Esta pagina aun no esta lista</h1>
+    </>
+    )
 }
 
 function App() {
