@@ -1,7 +1,8 @@
-import {BrowserRouter, Routes, Route, Link, Outlet, useParams} from 'react-router-dom';
-import { Provider } from 'react-redux';
+import {BrowserRouter, Routes, Route, Link, Outlet, useParams, useNavigate} from 'react-router-dom';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store';
 import SingIn from './users/SingIn';
+import { logOut } from './store/user';
 let NotImplemented = () => {
   return (
     <>
@@ -23,9 +24,22 @@ let Error404 = () => {
 }
 
 let UsuariosOutlet =()=>{
-  
+  let user = useSelector(state => state.user.user);
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+
+  let doLogOut = ()=> {
+    dispatch(
+      logOut()
+    )
+
+    navigate("/");
+  }
   return(
     <>
+      {
+        user && <button onClick={doLogOut}>Cerrar sesion</button>
+      }
       <Outlet />
     </>
   )
