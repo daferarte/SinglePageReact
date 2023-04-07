@@ -1,6 +1,7 @@
-import {BrowserRouter, Routes, Route, Link, Outlet, redirect, useNavigate, Navigate, useParams} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link, Outlet, useNavigate, useParams} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import SingIn from './users/SingIn';
 let NotImplemented = () => {
   return (
     <>
@@ -28,7 +29,6 @@ let UsuariosOutlet =()=>{
   }
   return(
     <>
-      <button onClick={redirect}>Ir al home </button>
       <Outlet />
     </>
   )
@@ -47,7 +47,6 @@ let VideoShow = () =>{
 }
 
 function App() {
-  const isAuth = false;
   return (
     //el proyecto se debe encapsular dentro de browserrouter para generar distintas rutas
     <BrowserRouter>
@@ -60,8 +59,8 @@ function App() {
           {/* grupo de rutas donde el padre es usuarios */}
           <Route path='/usuarios' element={<UsuariosOutlet/>}>
             {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
-            <Route path='registro' element={ isAuth ? <Navigate to='/'/> : <NotImplemented/>} />
-            <Route path='login' element={<NotImplemented/>} />
+            <Route path='registro' element={<NotImplemented/>} />
+            <Route path='login' element={<SingIn/>} />
             <Route path=':id' element={<NotImplemented/>} />
             <Route path=':id/videos' element={<NotImplemented/>} />
           </Route>
