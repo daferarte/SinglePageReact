@@ -13,8 +13,9 @@ let SingIn = (props) => {
         dispatch(
             signUp({
                 credentials:{
-                    email: 'daferarte@gmail.com',
-                    jwtToken: 'zcef7w48f7s7wefi7efh'
+                    email: 'daasd@gmail.com',
+                    password: '12345678',
+                    username: 'daasd'
                 }                
             })
         )
