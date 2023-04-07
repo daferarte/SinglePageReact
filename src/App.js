@@ -10,6 +10,16 @@ let NotImplemented = () => {
     )
 }
 
+let Error404 = () => {
+  return (
+    <>
+      {/* link para usar redirecciones es la manera optima sin multiples peticiones */}
+      <Link to="/">Regresar al inicio</Link>
+      <h1>Esta pagina no existe - 404</h1>
+    </>
+    )
+}
+
 let UsuariosOutlet =()=>{
   let navigate = useNavigate();
   let redirect=()=>{
@@ -60,6 +70,9 @@ function App() {
           <Route path=':id' element={<VideoShow/>} />
         </Route>
         
+        {/* pagina para usar el error 404 * empareja con lo que sea  */}
+        <Route path='*' element={<Error404/>} />
+
       </Routes>
       
     </BrowserRouter>
