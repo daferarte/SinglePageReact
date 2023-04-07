@@ -1,8 +1,9 @@
 import {BrowserRouter, Routes, Route, Link, Outlet, useParams, useNavigate} from 'react-router-dom';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import { store } from './store';
+import { persistor, store } from './store';
 import SingIn from './users/SingIn';
 import { logOut } from './store/user';
+import { PersistGate } from 'redux-persist/integration/react';
 let NotImplemented = () => {
   return (
     <>
@@ -64,29 +65,31 @@ function App() {
       {/* Routes se usa para generar grupas de rutas  */}
       {/* provider es un componente que permite acceder al redux por todos los componentes */}
       <Provider store={store}>
-        <Routes>
-          <Route path='/' element={<NotImplemented/>} />
+        <PersistGate loading={null} persistor={persistor}>
+          <Routes>
+            <Route path='/' element={<NotImplemented/>} />
 
-          {/* grupo de rutas donde el padre es usuarios */}
-          <Route path='/usuarios' element={<UsuariosOutlet/>}>
-            {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
-            <Route path='registro' element={<NotImplemented/>} />
-            <Route path='login' element={<SingIn/>} />
-            <Route path=':id' element={<NotImplemented/>} />
-            <Route path=':id/videos' element={<NotImplemented/>} />
-          </Route>
+            {/* grupo de rutas donde el padre es usuarios */}
+            <Route path='/usuarios' element={<UsuariosOutlet/>}>
+              {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
+              <Route path='registro' element={<NotImplemented/>} />
+              <Route path='login' element={<SingIn/>} />
+              <Route path=':id' element={<NotImplemented/>} />
+              <Route path=':id/videos' element={<NotImplemented/>} />
+            </Route>
 
-          {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
-          <Route path='/videos'>
-            <Route path='' element={<NotImplemented/>} />
-            <Route path='nuevo' element={<NotImplemented/>} />
-            <Route path=':id' element={<VideoShow/>} />
-          </Route>
-          
-          {/* pagina para usar el error 404 * empareja con lo que sea  */}
-          <Route path='*' element={<Error404/>} />
+            {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
+            <Route path='/videos'>
+              <Route path='' element={<NotImplemented/>} />
+              <Route path='nuevo' element={<NotImplemented/>} />
+              <Route path=':id' element={<VideoShow/>} />
+            </Route>
+            
+            {/* pagina para usar el error 404 * empareja con lo que sea  */}
+            <Route path='*' element={<Error404/>} />
 
-        </Routes>
+          </Routes>
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   );
