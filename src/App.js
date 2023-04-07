@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link, Outlet} from 'react-router-dom';
 
 let NotImplemented = () => {
   return (
@@ -10,6 +10,15 @@ let NotImplemented = () => {
     )
 }
 
+let UsuariosOutlet =()=>{
+  return(
+    <>
+      <p>hola desde usuarios</p>
+      <Outlet />
+    </>
+  )
+}
+
 function App() {
   return (
     //el proyecto se debe encapsular dentro de browserrouter para generar distintas rutas
@@ -17,19 +26,23 @@ function App() {
       {/* Routes se usa para generar grupas de rutas  */}
       <Routes>
         <Route path='/' element={<NotImplemented/>} />
-        <Route path='/usuarios/registro' element={<NotImplemented/>} />
-        <Route path='/usuarios/login' element={<NotImplemented/>} />
 
-        <Route path='/usuarios/:id' element={<NotImplemented/>} />
-        <Route path='/usuarios/:id/videos' element={<NotImplemented/>} />
+        {/* grupo de rutas donde el padre es usuarios */}
+        <Route path='/usuarios' element={<UsuariosOutlet/>}>          
+          <Route path='registro' element={<NotImplemented/>} />
+          <Route path='login' element={<NotImplemented/>} />
+          <Route path=':id' element={<NotImplemented/>} />
+          <Route path=':id/videos' element={<NotImplemented/>} />
+        </Route>
 
+        <Route path='/videos'>
+          <Route path='' element={<NotImplemented/>} />
+          <Route path='nuevo' element={<NotImplemented/>} />
+          <Route path=':id' element={<NotImplemented/>} />
+        </Route>
         
       </Routes>
-      <Routes>
-        <Route path='/videos' element={<NotImplemented/>} />
-        <Route path='/videos/nuevo' element={<NotImplemented/>} />
-        <Route path='/videos/:id' element={<NotImplemented/>} />
-      </Routes>
+      
     </BrowserRouter>
   );
 }
