@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Link, Outlet, useNavigate, useParams} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link, Outlet, useParams} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import SingIn from './users/SingIn';
@@ -23,10 +23,7 @@ let Error404 = () => {
 }
 
 let UsuariosOutlet =()=>{
-  let navigate = useNavigate();
-  let redirect=()=>{
-    navigate('/');
-  }
+  
   return(
     <>
       <Outlet />

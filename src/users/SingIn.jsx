@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { logOut, signIn } from "../store";
+import { logOut, signIn } from "../store/user";
 //metodo de simulacion de almacenamiento del payload
 let SingIn = (props) => {
     let dispatch = useDispatch();
