@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Link, Outlet} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, Link, Outlet, redirect, useNavigate, Navigate} from 'react-router-dom';
 
 let NotImplemented = () => {
   return (
@@ -11,15 +11,20 @@ let NotImplemented = () => {
 }
 
 let UsuariosOutlet =()=>{
+  let navigate = useNavigate();
+  let redirect=()=>{
+    navigate('/');
+  }
   return(
     <>
-      <p>hola desde usuarios</p>
+      <button onClick={redirect}>Ir al home </button>
       <Outlet />
     </>
   )
 }
 
 function App() {
+  const isAuth = false;
   return (
     //el proyecto se debe encapsular dentro de browserrouter para generar distintas rutas
     <BrowserRouter>
@@ -28,14 +33,16 @@ function App() {
         <Route path='/' element={<NotImplemented/>} />
 
         {/* grupo de rutas donde el padre es usuarios */}
-        <Route path='/usuarios' element={<UsuariosOutlet/>}>          
-          <Route path='registro' element={<NotImplemented/>} />
+        <Route path='/usuarios' element={<UsuariosOutlet/>}>
+          {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
+          <Route path='registro' element={ isAuth ? <Navigate to='/'/> : <NotImplemented/>} />
           <Route path='login' element={<NotImplemented/>} />
           <Route path=':id' element={<NotImplemented/>} />
           <Route path=':id/videos' element={<NotImplemented/>} />
         </Route>
 
-        <Route path='/videos'>
+        {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
+        <Route path='/videos' element={ <Navigate to='/'/>}>
           <Route path='' element={<NotImplemented/>} />
           <Route path='nuevo' element={<NotImplemented/>} />
           <Route path=':id' element={<NotImplemented/>} />
