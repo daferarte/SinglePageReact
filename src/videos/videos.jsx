@@ -12,7 +12,7 @@ let Videos = (props) => {
     },[]);
     return(
         <div>
-            {videosState}
+            {videosState.state}
         </div>
     )
 }

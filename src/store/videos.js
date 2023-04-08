@@ -32,13 +32,13 @@ export const createVideo = createAsyncThunk('videos/create', async(videoData, th
     }
 
     if(!token) return Promise.reject('No hay token');
-    console.log(token);
+
     let response = await Axios.post(`${apiConfig.domain}/videos`, videoData, {
         headers:{
             Authorization:`Bearer ${token}`
         }
     });
-
+    
     return response.data;
 });
 
