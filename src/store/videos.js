@@ -22,6 +22,26 @@ export const loadVideos = createAsyncThunk('videos/load', async(page=1, thunkAPI
     return response.data;
 });
 
+export const getVideo = createAsyncThunk('videos/get', async(videoId, thunkAPI)=>{
+    
+    let token;
+    try{
+        token = thunkAPI.getState().user.user.jwtToken;
+    }catch{
+        return Promise.reject('No hay token');
+    }
+
+    if(!token) return Promise.reject('No hay token');
+    
+    let response = await Axios.get(`${apiConfig.domain}/videos/${videoId}`, {
+        headers:{
+            Authorization:`Bearer ${token}`
+        }
+    });
+
+    return response.data;
+});
+
 export const createVideo = createAsyncThunk('videos/create', async(videoData, thunkAPI)=>{
     
     let token;
@@ -50,7 +70,8 @@ let videosSlice=createSlice({
             videos:[],
             nextPage: 1,
             total: 1
-        }
+        },
+        currentVideo: null
     },
     reducers:{},
     extraReducers:{
@@ -65,6 +86,10 @@ let videosSlice=createSlice({
                 videos: state.data.videos.concat(action.payload.videos)
                                
             }
+        },
+        [getVideo.fulfilled]: (state,action)=>{
+            state.status = 'success';
+            state.currentVideo=action.payload;
         }
     }
 });

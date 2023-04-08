@@ -6,6 +6,8 @@ import { logOut } from './store/user';
 import { PersistGate } from 'redux-persist/integration/react';
 import Videos from './videos/Videos';
 import VideosForm from './videos/VideosForm';
+import VideoShow from './videos/VideoShow';
+
 let NotImplemented = () => {
   return (
     <>
@@ -73,7 +75,7 @@ function App() {
             <Route path='/videos'>
               <Route path='' element={<Videos/>} />
               <Route path='nuevo' element={<VideosForm/>} />
-              <Route path=':id' element={<NotImplemented/>} />
+              <Route path=':id' element={<VideoShow/>} />
             </Route>
             
             {/* pagina para usar el error 404 * empareja con lo que sea  */}
