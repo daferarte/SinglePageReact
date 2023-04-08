@@ -4,7 +4,8 @@ import { persistor, store } from './store';
 import SingIn from './users/SingIn';
 import { logOut } from './store/user';
 import { PersistGate } from 'redux-persist/integration/react';
-import Videos from './videos/videos';
+import Videos from './videos/Videos';
+import VideosForm from './videos/VideosForm';
 let NotImplemented = () => {
   return (
     <>
@@ -47,17 +48,6 @@ let UsuariosOutlet =()=>{
   )
 }
 
-let VideoShow = () =>{
-  //extraccion del objeto enviado por params
-  let {id} = useParams();
-  let params = useParams();
-  console.log(params);
-  return(
-    <p>
-      {id}
-    </p>
-  )
-}
 
 function App() {
   return (
@@ -82,8 +72,8 @@ function App() {
             {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
             <Route path='/videos'>
               <Route path='' element={<Videos/>} />
-              <Route path='nuevo' element={<NotImplemented/>} />
-              <Route path=':id' element={<VideoShow/>} />
+              <Route path='nuevo' element={<VideosForm/>} />
+              <Route path=':id' element={<NotImplemented/>} />
             </Route>
             
             {/* pagina para usar el error 404 * empareja con lo que sea  */}
