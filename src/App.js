@@ -4,6 +4,7 @@ import { persistor, store } from './store';
 import SingIn from './users/SingIn';
 import { logOut } from './store/user';
 import { PersistGate } from 'redux-persist/integration/react';
+import Videos from './videos/videos';
 let NotImplemented = () => {
   return (
     <>
@@ -80,7 +81,7 @@ function App() {
 
             {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
             <Route path='/videos'>
-              <Route path='' element={<NotImplemented/>} />
+              <Route path='' element={<Videos/>} />
               <Route path='nuevo' element={<NotImplemented/>} />
               <Route path=':id' element={<VideoShow/>} />
             </Route>
