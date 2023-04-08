@@ -12,7 +12,13 @@ let Videos = (props) => {
     },[]);
     return(
         <div>
-            {videosState.state}
+            {
+                videosState.data.videos.map((video, index) =>(
+                    <div key={index}>
+                        <h2>{video.title}</h2>
+                    </div>
+                ))
+            }
         </div>
     )
 }
