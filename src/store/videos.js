@@ -2,8 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import Axios from 'axios';
 import apiConfig from '../config/api';
 
-export const loadVideos = createAsyncThunk('videos/load', async(page=1, thunkAPI)=>{
-    
+let innerLoadVideos = async (path, thunkAPI) =>{
     let token;
     try{
         token = thunkAPI.getState().user.user.jwtToken;
@@ -12,14 +11,24 @@ export const loadVideos = createAsyncThunk('videos/load', async(page=1, thunkAPI
     }
 
     if(!token) return Promise.reject('No hay token');
-    
-    let response = await Axios.get(`${apiConfig.domain}/videos?page=${page}`, {
+    ///videos?page=${page}
+    let response = await Axios.get(`${apiConfig.domain}/${path}`, {
         headers:{
             Authorization:`Bearer ${token}`
         }
     });
 
     return response.data;
+}
+
+export const loadVideos = createAsyncThunk('videos/load', async(page=1, thunkAPI)=>{
+    return innerLoadVideos(`videos?page=${page}`, thunkAPI);
+    
+});
+
+export const loadVideosForUser = createAsyncThunk('videos/user/load', async(args,thunkAPI)=>{
+    return innerLoadVideos(`users/videos`, thunkAPI);
+    
 });
 
 export const getVideo = createAsyncThunk('videos/get', async(videoId, thunkAPI)=>{
@@ -90,6 +99,10 @@ let videosSlice=createSlice({
         [getVideo.fulfilled]: (state,action)=>{
             state.status = 'success';
             state.currentVideo=action.payload;
+        },
+        [loadVideosForUser.fulfilled]: (state,action)=>{
+            //state.status = 'success';
+            state.data.videos=action.payload;
         }
     }
 });

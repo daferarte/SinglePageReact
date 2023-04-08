@@ -7,6 +7,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Videos from './videos/Videos';
 import VideosForm from './videos/VideosForm';
 import VideoShow from './videos/VideoShow';
+import Profile from './users/Profile';
 
 let NotImplemented = () => {
   return (
@@ -67,7 +68,7 @@ function App() {
               {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
               <Route path='registro' element={<NotImplemented/>} />
               <Route path='login' element={<SingIn/>} />
-              <Route path=':id' element={<NotImplemented/>} />
+              <Route path='miperfil' element={<Profile/>} />
               <Route path=':id/videos' element={<NotImplemented/>} />
             </Route>
 
