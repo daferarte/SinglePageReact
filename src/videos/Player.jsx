@@ -8,6 +8,7 @@ let Player = ({video}) => {
             player.current = new PlayerSdk(`#appPlayer-${video.id}`); //# para indicar selector de id
             player.current.mute();
             player.current.play();
+            player.current.setLoop(true);
         }        
     },[video.id])
     return(
