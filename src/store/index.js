@@ -3,11 +3,13 @@ import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import {persistStore, persistReducer} from 'redux-persist';
 import userReducer from './user';
 import videosReducer from './videos';
+import likeReducer from './likes';
 import storage  from 'redux-persist/lib/storage';
 
 const reducer = combineReducers({
     user: userReducer,
-    videos: videosReducer
+    videos: videosReducer,
+    like: likeReducer
 });
 
 const persistConfg = {
