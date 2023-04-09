@@ -11,8 +11,8 @@ let LinkStyler = css`
 let Example = styled.div`
     height: 200px;
     transition: all 0.2s;
-    padding: 50px
-
+    padding: 50px;
+    background-color: ${({theme})=>theme.colors.dark};
     & a{
         color: purple;
     }
@@ -65,8 +65,7 @@ let AppInput = styled.input.attrs((props)=>{
 
 let HomePage = (props) => {
     return(
-         <Example className="important"> //clase important de color amarillo
-        {/* <Example > */}
+         <Example > 
             <p> Hola mundo</p>
             <Button primary>Ejemplo</Button>
             <PrimaryButton>PrimaryButton</PrimaryButton>
