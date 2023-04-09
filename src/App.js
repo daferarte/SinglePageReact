@@ -10,7 +10,7 @@ import VideoShow from './videos/VideoShow';
 import Profile from './users/Profile';
 import HomePage from './Home';
 import { ThemeProvider } from 'styled-components';
-import theme from './theme';
+import theme, { Layout } from './theme';
 
 let NotImplemented = () => {
   return (
@@ -64,29 +64,31 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
-            <Routes>
-              <Route path='/' element={<HomePage/>} />
+            <Layout>
+              <Routes>
+                <Route path='/' element={<HomePage/>} />
 
-              {/* grupo de rutas donde el padre es usuarios */}
-              <Route path='/usuarios' element={<UsuariosOutlet/>}>
-                {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
-                <Route path='registro' element={<NotImplemented/>} />
-                <Route path='login' element={<SingIn/>} />
-                <Route path='miperfil' element={<Profile/>} />
-                <Route path=':id/videos' element={<NotImplemented/>} />
-              </Route>
+                {/* grupo de rutas donde el padre es usuarios */}
+                <Route path='/usuarios' element={<UsuariosOutlet/>}>
+                  {/* el elemento navigate se puede usar para validar si esta iniciado sesion           */}
+                  <Route path='registro' element={<NotImplemented/>} />
+                  <Route path='login' element={<SingIn/>} />
+                  <Route path='miperfil' element={<Profile/>} />
+                  <Route path=':id/videos' element={<NotImplemented/>} />
+                </Route>
 
-              {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
-              <Route path='/videos'>
-                <Route path='' element={<Videos/>} />
-                <Route path='nuevo' element={<VideosForm/>} />
-                <Route path=':id' element={<VideoShow/>} />
-              </Route>
-              
-              {/* pagina para usar el error 404 * empareja con lo que sea  */}
-              <Route path='*' element={<Error404/>} />
+                {/* el elemento navigate to se comporta como un redirect y envia a / automaticamente */}
+                <Route path='/videos'>
+                  <Route path='' element={<Videos/>} />
+                  <Route path='nuevo' element={<VideosForm/>} />
+                  <Route path=':id' element={<VideoShow/>} />
+                </Route>
+                
+                {/* pagina para usar el error 404 * empareja con lo que sea  */}
+                <Route path='*' element={<Error404/>} />
 
-            </Routes>
+              </Routes>
+            </Layout>
           </ThemeProvider>
         </PersistGate>
       </Provider>

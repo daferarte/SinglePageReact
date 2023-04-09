@@ -1,3 +1,5 @@
+import styled from "styled-components"
+
 export default {
     colors: {
         white:'#ffffff',
@@ -10,4 +12,30 @@ export default {
     dims:{
 
     }
+}
+
+let LayoutContainer = styled.div`
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto minmax(0,1fr) auto;
+    & nav {
+        background-color: ${({theme})=>theme.colors.dark};
+        height:100px;
+    }
+    & footer{
+        height:100px;
+        background-color: ${({theme})=>theme.colors.dark};
+    }
+`;
+
+export let Layout = (props) =>{
+    return (
+        <LayoutContainer>
+            <nav></nav>
+            <main>
+                {props.children}
+            </main>
+            <footer></footer>
+        </LayoutContainer>
+    )
 }
