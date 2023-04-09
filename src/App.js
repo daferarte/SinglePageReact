@@ -8,6 +8,7 @@ import Videos from './videos/Videos';
 import VideosForm from './videos/VideosForm';
 import VideoShow from './videos/VideoShow';
 import Profile from './users/Profile';
+import HomePage from './Home';
 
 let NotImplemented = () => {
   return (
@@ -61,7 +62,7 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Routes>
-            <Route path='/' element={<NotImplemented/>} />
+            <Route path='/' element={<HomePage/>} />
 
             {/* grupo de rutas donde el padre es usuarios */}
             <Route path='/usuarios' element={<UsuariosOutlet/>}>
