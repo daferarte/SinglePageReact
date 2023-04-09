@@ -30,6 +30,15 @@ let AppLink = styled(Link)`
     text-transform: uppercase;
 `;
 
+let AppInput = styled.input.attrs((props)=>{
+    return {
+        //type:'email' //reescribe valores finales
+        type: props.type ? props.type : "text"  // validacion para definir el type por props
+    }
+})`
+    border: solid 1px red;
+`;
+
 let HomePage = (props) => {
     return(
         <Example>
@@ -37,6 +46,7 @@ let HomePage = (props) => {
             <Button primary>Ejemplo</Button>
             <PrimaryButton>PrimaryButton</PrimaryButton>
             <AppLink to="/videos">Videos</AppLink>
+            <AppInput type="email" placeholder="Escribe tu nombre" required></AppInput>
         </Example>
     )
 }
