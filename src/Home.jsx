@@ -7,6 +7,22 @@ let Example = styled.div`
     height: 200px;
     transition: all 0.2s;
     padding: 50px
+
+    & a{
+        color: purple;
+    }
+
+    &::after{
+
+    }
+
+    &:hover{
+        background-color: blue;
+    }
+
+    &.important{
+        background-color: yellow;
+    }
 `;
 
 let Button = styled.button`
@@ -37,14 +53,19 @@ let AppInput = styled.input.attrs((props)=>{
     }
 })`
     border: solid 1px red;
+    .important &{
+        background-color: pink;
+    }
 `;
 
 let HomePage = (props) => {
     return(
-        <Example>
+         <Example className="important"> //clase important de color amarillo
+        {/* <Example > */}
             <p> Hola mundo</p>
             <Button primary>Ejemplo</Button>
             <PrimaryButton>PrimaryButton</PrimaryButton>
+            <a>otro link</a>
             <AppLink to="/videos">Videos</AppLink>
             <AppInput type="email" placeholder="Escribe tu nombre" required></AppInput>
         </Example>
