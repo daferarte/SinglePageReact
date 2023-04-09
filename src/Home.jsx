@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
+
+//reciclaje de css
+let LinkStyler = css`
+    font-size:0.5em;
+`;
 
 // Tagget templates
 let Example = styled.div`
@@ -32,7 +37,7 @@ let Button = styled.button`
     font-size: 1em;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.6);
     border-radius:2px;
-
+    ${LinkStyler}
 `;
 
 let PrimaryButton = styled(Button)`
