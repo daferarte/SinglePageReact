@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadVideos } from "../store/videos";
-import Player from "./Player";
 import { likeVideo } from "../store/likes";
+import { SmallContainer } from "../theme";
+import Video from "./Video";
 
 let Videos = (props) => {
     let videosState = useSelector(state => state.videos);
@@ -20,15 +21,13 @@ let Videos = (props) => {
     }
     return(
         <div>
-            {
-                videosState.data.videos.map((video, index) =>(
-                    <div key={index}>
-                        <h2>{video.title}</h2>
-                        <Player video={video}></Player>
-                        <button onClick={() => doLike(video.id) } style={{ backgroundColor:(video.isLikedByCurrentUser ? 'red' : 'inherit') }}>like</button>
-                    </div>
-                ))
-            }
+            <SmallContainer>
+                {
+                    videosState.data.videos.map((video, index) =>(
+                        <Video index={index} video={video}></Video>
+                    ))
+                }
+            </SmallContainer>
         </div>
     )
 }
