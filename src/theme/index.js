@@ -45,18 +45,11 @@ export default {
     }
 }
 
-let LayoutContainer = styled.div`
+export let LayoutContainer = styled.div`
     display: grid;
     min-height: 100vh;
     grid-template-rows: auto minmax(0,1fr) auto;
-    & nav {
-        background-color: ${({theme})=>theme.colors.dark};
-        height:100px;
-    }
-    & footer{
-        height:100px;
-        background-color: ${({theme})=>theme.colors.dark};
-    }
+    
 `;
 
 export let SmallContainer = styled.div`
@@ -76,3 +69,13 @@ export let Layout = (props) =>{
         </LayoutContainer>
     )
 }
+
+export let Title = styled.h1`
+    font-size:${({theme})=>theme.dims.fonts.medium};
+    font-weight: bold;
+    display: inline-block;
+    margin-block-start:0;
+    margin-block-end:0;
+    margin-left: ${({theme})=> theme.dims.margin.intersection};
+    vertical-align: middle;
+`;
